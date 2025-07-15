@@ -1,41 +1,71 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const path = require('path');
+const fs = require('fs');
+const os = require('os');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const app = express();
 
-var app = express();
+// Directorio donde se guardan los archivos
+const FILES_DIR = path.join(__dirname, "files_to_edit");
 
-// view engine setup
+// Configuración del motor de vistas (EJS)
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+// Servir archivos estáticos (CSS, JS del cliente) desde la carpeta 'public'
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// --- RUTAS DE LA API ---
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+// API para obtener la lista de archivos
+app.get('/api/files', (req, res) => {
+  fs.readdir(FILES_DIR, (err, files) => {
+    if (err) {
+      console.error("No se pudo leer el directorio de archivos:", err);
+      // Si el directorio no existe, devuelve una lista vacía en lugar de un error.
+      if (err.code === 'ENOENT') {
+        return res.json([]);
+      }
+      return res.status(500).json({ error: "Error al leer el directorio de archivos." });
+    }
+    res.json(files.filter(file => fs.statSync(path.join(FILES_DIR, file)).isFile()));
+  });
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+// API para obtener el contenido de un archivo
+app.get('/api/files/:filename', (req, res) => {
+  const { filename } = req.params;
+  const filePath = path.join(FILES_DIR, filename);
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  fs.readFile(filePath, 'utf8', (err, content) => {
+    if (err) {
+      console.error(`No se pudo leer el archivo ${filename}:`, err);
+      return res.status(404).json({ error: "Archivo no encontrado." });
+    }
+    res.json({ filename, content });
+  });
+});
+
+// --- RUTAS DE LAS PÁGINAS ---
+
+// Ruta para la página del editor
+app.get('/', (req, res) => {
+  res.render('index', { title: 'Editor Web' });
+});
+
+// Ruta para la página de la herramienta cURL
+app.get('/curl', (req, res) => {
+  res.render('curl', { title: 'Herramienta cURL' });
 });
 
 module.exports = app;
+
+// Nota: WebStorm usualmente maneja el inicio del servidor en un archivo 'bin/www'.
+// Si tu proyecto tiene ese archivo, no necesitas las siguientes líneas aquí.
+// Si app.js es tu archivo principal de inicio, descoméntalas.
+/*
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Servidor escuchando en http://localhost:${port}`);
+});
+*/
