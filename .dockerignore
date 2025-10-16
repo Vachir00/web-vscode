@@ -1,0 +1,12 @@
+# Ignorar dependencias locales, se instalan dentro del contenedor
+node_modules
+
+# Logs de npm
+npm-debug.log
+
+# Archivos de configuración del editor y sistema
+.idea
+.vscode
+.DS_Store
+Dockerfile
+.dockerignore

@@ -1,11 +1,38 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+<div class="main-container">
+  <nav class="main-sidebar">
+    <ul>
+      <li class="active"><a href="/">Editor</a></li>
+      <li><a href="/curl">cURL</a></li>
+    </ul>
+    <div class="version-info">
+      Versión 0.1
+    </div>
+  </nav>
+
+  <div class="editor-view">
+    <aside id="file-sidebar" class="file-sidebar">
+      <h4>Archivos</h4>
+      <div class="file-actions">
+        <button id="create-file-btn">Crear Archivo</button>
+        <button id="save-file-btn">Guardar</button>
+      </div>
+      <div id="file-list">
+      </div>
+    </aside>
+
+    <main id="editor-container" class="editor-container"></main>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.49.0/min/vs/loader.js"></script>
+<script src="/javascripts/script.js"></script>
+</body>
 </html>
