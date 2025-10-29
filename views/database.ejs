@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+<!--    <script src="https://unpkg.com/@dbml/renderer/dist/dbml-renderer.umd.js"></script>-->
+</head>
+<body>
+<div class="main-container">
+    <nav class="main-sidebar">
+        <ul>
+            <li><a href="/">Editor</a></li>
+            <li><a href="/curl">cURL</a></li>
+            <li class="active"><a href="/database">Databases</a></li>
+        </ul>
+        <div class="version-info">
+            Versión 0.1
+        </div>
+    </nav>
+    <div class="editor-view">
+        <aside id="db-sidebar" class="file-sidebar"> <h4>Conexiones</h4>
+            <div class="file-actions">
+                <button id="create-db-btn">Nueva Conexión</button>
+            </div>
+            <div id="db-list">
+            </div>
+        </aside>
+
+        <main class="editor-container" style="display: flex; flex-direction: column;">
+
+            <div id="db-form-container" style="padding: 10px; border-bottom: 1px solid #444;">
+                <form id="db-form">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <select name="dbType" id="dbType">
+                            <option value="postgres">PostgreSQL</option>
+                            <option value="mysql">MySQL</option>
+                        </select>
+                        <input type="text" name="host" id="host" placeholder="Host (ej: localhost)">
+                        <input type="number" name="port" id="port" placeholder="Puerto (ej: 5432)">
+                        <input type="text" name="dbname" id="dbname" placeholder="Base de Datos">
+                        <input type="text" name="user" id="user" placeholder="Usuario">
+                        <input type="password" name="password" id="password" placeholder="Contraseña">
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <button type="button" id="save-db-btn" class="btn-secondary">Guardar Conexión</button>
+                        <button type="submit" id="generate-dbml-btn" class="btn-primary">Generar Diagrama</button>
+
+                        <button type="button" id="download-svg-btn" class="btn-secondary">Descargar SVG</button>
+                        <button type="button" id="download-png-btn" class="btn-secondary">Descargar PNG</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="diagram-container" style="flex-grow: 1; background: #1e1e1e; overflow: auto;">
+                <h3 style="color: #888; text-align: center; margin-top: 50px;">
+                    Selecciona una conexión y presiona "Generar Diagrama"
+                </h3>
+            </div>
+
+        </main>
+    </div>
+</div>
+<!--<script src="https://cdn.jsdelivr.net/npm/@dbml/renderer/dist/dbml-renderer.js"></script>-->
+<script src="/javascripts/database.js"></script>
+</body>
+</html>
