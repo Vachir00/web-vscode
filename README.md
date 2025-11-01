@@ -7,7 +7,7 @@ This is a personal project to manage my developments. I'm updating it perodicall
 - Database: This is the newest feature, and it is intended to connect to a database and export a diagram that you could get as SVG to use it privately. **I did not test it on MySQL (yet)**
 
 ## How to use it
-Easy, pretty easy, you could use my docker image (published on Docker Hub) vachir00/web-vscode:0.3 . Feel free to use it anywhere you need. If you want to use the source code, you will have to download it, install dependecies, install postgresql client, and try.
+Easy, pretty easy, you could use my docker image (published on Docker Hub) vachir00/web-vscode:0.4 . Feel free to use it anywhere you need. If you want to use the source code, you will have to download it, install dependecies, install postgresql client, and try.
 
 **Please remember it is from a developer for developers, and it was made using Gemini and GPT, so use them to install it!**
 
@@ -15,7 +15,7 @@ Easy, pretty easy, you could use my docker image (published on Docker Hub) vachi
 
 if you run
 
-    docker run --network bridge -p 3000:3000 vachir00/web-vscode:0.3
+    docker run --network bridge -p 3000:3000 vachir00/web-vscode:0.4
 
 it will work.
 
