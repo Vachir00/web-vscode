@@ -1,2 +1,5 @@
 /files_to_edit/
 /database_configs/
+/.idea/
+/node_modules/
+.package-lock.json
