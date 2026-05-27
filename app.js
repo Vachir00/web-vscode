@@ -8,6 +8,7 @@ const cors = require('cors');
 const editorApiRouter = require('./routes/editor');
 const databaseApiRouter = require('./routes/database');
 const pagesRouter = require('./routes/pages');
+const curlRouter = require('./routes/curl');
 
 const app = express();
 app.use(cors()); // --- NUEVO ---
@@ -21,6 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Monta las rutas de la API bajo prefijos específicos
 app.use('/api/files', editorApiRouter);
 app.use('/api/database', databaseApiRouter);
+app.use('/api/curl', curlRouter);
 
 // Monta las rutas de las páginas en la raíz
 app.use('/', pagesRouter);
