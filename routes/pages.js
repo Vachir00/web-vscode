@@ -14,4 +14,8 @@ router.get('/database', (req, res) => {
   res.render('database', { title: 'Herramienta Database' });
 });
 
+router.get('/brain', (req, res) => {
+  res.render('brain', { title: 'Herramienta Brain' });
+});
+
 module.exports = router;
